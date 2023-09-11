@@ -17,7 +17,7 @@ def sort_frequency_asc(symbol_frequency):
 
 
 def display_symbol_frequency(sorted_frequency):
-    # Display symbol frequency
+    # Display symbol frequency1
     print('Symbol Frequency:')
     for i, (symbol, frequency) in enumerate(sorted_frequency, start=1):
         print(f"{repr(symbol)}:{frequency}\t", end='' if i % 4 else '\n')
@@ -31,6 +31,11 @@ def calculate_information(text):
     information = -sum(
         (frequency / total_symbols) * (math.log2(frequency / total_symbols)) for frequency in symbol_frequency.values())
     return information
+
+
+def information_print(language, text):
+    information = round(calculate_information(text), 1)
+    print(f'Information for {language} text: {information}÷{round(information + 0.10001,1)}\n')
 
 
 def read_file_contents(file_path):
@@ -52,7 +57,8 @@ def menu():
         text = input('Enter text: ')
         sorted_frequency = sort_frequency_asc(calculate_symbol_frequency(text))
         display_symbol_frequency(sorted_frequency)
-        print(f'Information: {calculate_information(text)}')
+        information = round(calculate_information(text), 1)
+        print(f'Information: {information}÷{round(information + 0.10001, 1)}\n')
         menu()
     elif action == '2':
         url = input('Enter URL: ')
@@ -67,7 +73,8 @@ def menu():
             text = re.sub(r'\t', '\\t', text)  # Tab replacement
             sorted_frequency = sort_frequency_asc(calculate_symbol_frequency(text))
             display_symbol_frequency(sorted_frequency)
-            print(f'Information: {calculate_information(text)}\n')
+            information = round(calculate_information(text), 1)
+            print(f'Information: {information}÷{round(information + 0.10001, 1)}\n')
         else:
             print(f'Error when requesting the site: {response.status_code}')
         menu()
@@ -94,7 +101,8 @@ if __name__ == '__main__':
         print(f"\t\t{language} text")
         sorted_frequency = sort_frequency_asc(calculate_symbol_frequency(text))
         display_symbol_frequency(sorted_frequency)
-        print(f'Information for {language} text: {calculate_information(text)}\n')
+        #print(f'Information for {language} text: {calculate_information(text)}\n')
+        information_print(language, text)
 
     # output all texts 2
     print("\t\tText 2:")
@@ -104,8 +112,8 @@ if __name__ == '__main__':
         print(f"\t\t{language} text")
         sorted_frequency = sort_frequency_asc(calculate_symbol_frequency(text))
         display_symbol_frequency(sorted_frequency)
-        print(f'Information for {language} text: {calculate_information(text)}\n')
-
+        #print(f'Information for {language} text: {calculate_information(text)}\n')
+        information_print(language, text)
 
     menu()
 
