@@ -34,7 +34,8 @@ def calculate_information(text):
 
 
 def information_print(language, text):
-    information = round(calculate_information(text), 1)
+    information = calculate_information(text)
+    information = math.floor(information * 10) / 10
     print(f'Information for {language} text: {information}÷{round(information + 0.10001,1)}\n')
 
 
