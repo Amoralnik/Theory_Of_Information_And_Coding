@@ -16,11 +16,12 @@ def sort_frequency_asc(symbol_frequency):
     return sorted_frequency
 
 
-def display_symbol_frequency(sorted_frequency):
+def display_symbol_frequency(sorted_frequency, text):
     # Display symbol frequency1
+    total_symbols = len(text)
     print('Symbol Frequency:')
     for i, (symbol, frequency) in enumerate(sorted_frequency, start=1):
-        print(f"{repr(symbol)}:{frequency}\t", end='' if i % 4 else '\n')
+        print(f"{repr(symbol)}:{round(frequency / total_symbols * 100 , 3)}%\t", end='' if i % 4 else '\n')
     print()
 
 
@@ -57,7 +58,7 @@ def menu():
     if action == '1':
         text = input('Enter text: ')
         sorted_frequency = sort_frequency_asc(calculate_symbol_frequency(text))
-        display_symbol_frequency(sorted_frequency)
+        display_symbol_frequency(sorted_frequency, text)
         information = round(calculate_information(text), 1)
         print(f'Information: {information}÷{round(information + 0.10001, 1)}\n')
         menu()
@@ -73,7 +74,7 @@ def menu():
             text = re.sub(r'\n', '\\n', text)  # Line break replacement
             text = re.sub(r'\t', '\\t', text)  # Tab replacement
             sorted_frequency = sort_frequency_asc(calculate_symbol_frequency(text))
-            display_symbol_frequency(sorted_frequency)
+            display_symbol_frequency(sorted_frequency, text)
             information = round(calculate_information(text), 1)
             print(f'Information: {information}÷{round(information + 0.10001, 1)}\n')
         else:
@@ -101,7 +102,7 @@ if __name__ == '__main__':
     for text, language in texts1:
         print(f"\t\t{language} text")
         sorted_frequency = sort_frequency_asc(calculate_symbol_frequency(text))
-        display_symbol_frequency(sorted_frequency)
+        display_symbol_frequency(sorted_frequency, text)
         #print(f'Information for {language} text: {calculate_information(text)}\n')
         information_print(language, text)
 
@@ -112,7 +113,7 @@ if __name__ == '__main__':
     for text, language in texts2:
         print(f"\t\t{language} text")
         sorted_frequency = sort_frequency_asc(calculate_symbol_frequency(text))
-        display_symbol_frequency(sorted_frequency)
+        display_symbol_frequency(sorted_frequency, text)
         #print(f'Information for {language} text: {calculate_information(text)}\n')
         information_print(language, text)
 
